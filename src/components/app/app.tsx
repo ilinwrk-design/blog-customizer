@@ -9,6 +9,9 @@ import styles from './app.module.scss';
 
 export const App = () => {
 	const [articleState, setArticleState] = useState(defaultArticleState);
+	const handleReset = () => {
+		setArticleState(defaultArticleState);
+	};
 	return (
 		<main
 			className={clsx(styles.main)}
@@ -21,7 +24,7 @@ export const App = () => {
 					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm onApply={setArticleState} />
+			<ArticleParamsForm onApply={setArticleState} onReset={handleReset} />
 			<Article />
 		</main>
 	);

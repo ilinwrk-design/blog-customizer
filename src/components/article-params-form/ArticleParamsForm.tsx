@@ -21,9 +21,13 @@ import styles from './ArticleParamsForm.module.scss';
 
 type ArticleParamsFormProps = {
 	onApply: (settings: ArticleStateType) => void;
+	onReset: () => void;
 };
 
-export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
+export const ArticleParamsForm = ({
+	onApply,
+	onReset,
+}: ArticleParamsFormProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formState, setFormState] = useState(defaultArticleState);
 	const formRef = useRef<HTMLDivElement>(null);
@@ -34,6 +38,10 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		onApply(formState);
+	};
+	const handleReset = () => {
+		setFormState(defaultArticleState);
+		onReset();
 	};
 
 	useEffect(() => {
@@ -134,7 +142,12 @@ export const ArticleParamsForm = ({ onApply }: ArticleParamsFormProps) => {
 					/>
 
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' />
+						<Button
+							title='Сбросить'
+							htmlType='reset'
+							type='clear'
+							onClick={handleReset}
+						/>
 						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
