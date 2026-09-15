@@ -114,7 +114,9 @@ export const ArticleParamsForm = ({
 						}
 					/>
 
-					<Separator />
+					<div className={styles.separator}>
+						<Separator />
+					</div>
 
 					<Select
 						title='цвет фона'
