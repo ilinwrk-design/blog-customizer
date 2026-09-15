@@ -128,8 +128,7 @@ export const ArticleParamsForm = ({
 						}
 					/>
 
-					<RadioGroup
-						name='content-width'
+					<Select
 						title='ширина контента'
 						selected={formState.contentWidth}
 						options={contentWidthArr}
