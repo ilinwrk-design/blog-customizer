@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import {
 	ArticleStateType,
+	OptionType,
 	backgroundColors,
 	contentWidthArr,
 	defaultArticleState,
@@ -35,13 +36,24 @@ export const ArticleParamsForm = ({
 	const handleArrowClick = () => {
 		setIsOpen((currentState) => !currentState);
 	};
+
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		onApply(formState);
 	};
+
 	const handleReset = () => {
 		setFormState(defaultArticleState);
 		onReset();
+	};
+
+	const updateFormField = (field: keyof ArticleStateType) => {
+		return (value: OptionType) => {
+			setFormState((prev) => ({
+				...prev,
+				[field]: value,
+			}));
+		};
 	};
 
 	useEffect(() => {
@@ -81,12 +93,7 @@ export const ArticleParamsForm = ({
 						title='шрифт'
 						selected={formState.fontFamilyOption}
 						options={fontFamilyOptions}
-						onChange={(option) =>
-							setFormState({
-								...formState,
-								fontFamilyOption: option,
-							})
-						}
+						onChange={updateFormField('fontFamilyOption')}
 					/>
 
 					<RadioGroup
@@ -94,24 +101,14 @@ export const ArticleParamsForm = ({
 						title='размер шрифта'
 						selected={formState.fontSizeOption}
 						options={fontSizeOptions}
-						onChange={(option) =>
-							setFormState({
-								...formState,
-								fontSizeOption: option,
-							})
-						}
+						onChange={updateFormField('fontSizeOption')}
 					/>
 
 					<Select
 						title='цвет шрифта'
 						selected={formState.fontColor}
 						options={fontColors}
-						onChange={(option) =>
-							setFormState({
-								...formState,
-								fontColor: option,
-							})
-						}
+						onChange={updateFormField('fontColor')}
 					/>
 
 					<div className={styles.separator}>
@@ -122,24 +119,14 @@ export const ArticleParamsForm = ({
 						title='цвет фона'
 						selected={formState.backgroundColor}
 						options={backgroundColors}
-						onChange={(option) =>
-							setFormState({
-								...formState,
-								backgroundColor: option,
-							})
-						}
+						onChange={updateFormField('backgroundColor')}
 					/>
 
 					<Select
 						title='ширина контента'
 						selected={formState.contentWidth}
 						options={contentWidthArr}
-						onChange={(option) =>
-							setFormState({
-								...formState,
-								contentWidth: option,
-							})
-						}
+						onChange={updateFormField('contentWidth')}
 					/>
 
 					<div className={styles.bottomContainer}>
